@@ -1,59 +1,72 @@
-
 <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 32px">
-  <div fxLayout="column" fxLayoutGap="16px">
+  <div fxLayout="column" fxLayoutGap="16px" fxFlex.gt-xs="420px" fxFlex.xs="100">
     <div>
-      <a mat-button [href]="FORWARD.indexOf('http') == -1 ? (('//') + FORWARD) : FORWARD"><mat-icon>arrow_back</mat-icon>Home</a>
+      <a mat-button [href]="FORWARD.indexOf('http') == -1 ? (('//') + FORWARD) : FORWARD">
+        <mat-icon>arrow_back</mat-icon>Home
+      </a>
     </div>
-    <div>
-      <mat-card fxFlex="420px" style="background-color: white;">
-        <div fxLayout="column" fxLayoutGap="24px" style="margin-top: 16px">
-          <div fxLayout="column" fxLayoutAlign="center center">
-            <img width="150px" src="./assets/Forward-Logo.png">
-          </div>
-          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-            <div style="font-weight: 600; font-size: 1.25rem">Get Your Instant Quote</div>
-            <span>Use the form below and get an instant quote.</span>
-          </div>
-          <div fxLayout="column">
-              <div fxLayout="row" fxLayoutAlign="center center">
-                <mat-form-field class="p-right-20" fxFlex="40">
-                  <input  matInput placeholder="First Name" [(ngModel)]="quote.fname" required>
+    <div fxLayout="row">
+      <div fxFlex="400px" fxFlex.xs="100">
+        <mat-card style="background-color: white;">
+          <div fxLayout="column" fxLayoutGap="24px" style="margin-top: 16px">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <img width="150px" src="./assets/Forward-Logo.png">
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+              <div style="font-weight: 600; font-size: 1.25rem">Get Your Instant Quote</div>
+              <span>Use the form below and get an instant quote.</span>
+            </div>
+            <div fxLayout="column">
+              <div fxLayout.gt-xs="row" fxLayoutGap.gt-xs="16px" fxLayout.xs="column" fxLayoutAlign.gt-xs="center center" fxLayoutAlign.lt-sm="center">
+                <mat-form-field fxFlex.gt-xs="40" fxFlex.xs="100">
+                  <input matInput placeholder="First Name" [(ngModel)]="quote.fname" required>
                 </mat-form-field>
-                <mat-form-field fxFlex="60">
+                <mat-form-field fxFlex.gt-xs="60" fxFlex.xs="100">
                   <input i18-placeholder matInput placeholder="Last Name" [(ngModel)]="quote.lname" required>
                 </mat-form-field>
               </div>
               <mat-form-field>
                 <input matInput placeholder="E-mail" [(ngModel)]="quote.email" required>
               </mat-form-field>
+              <mat-form-field>
+                <mat-label>Phone number</mat-label>
+                <input matInput placeholder="(222) 333-4455" [(ngModel)]="quote.phone" required>
+                <mat-icon matSuffix>phone</mat-icon>
+
+              </mat-form-field>
               <div fxLayout="row" fxLayoutGap="16px">
                 <mat-form-field fxFlex="calc(50% - 28px)">
-                  <mat-select  placeholder="Source Language" [(ngModel)]="quote.source" required [disabled]="uploading || uploaded">
+                  <mat-select placeholder="Source Language" [(ngModel)]="quote.source" required
+                    [disabled]="uploading || uploaded">
                     <mat-option *ngFor="let source of sourceLanguages" [value]="source.value">{{source.name}}</mat-option>
                   </mat-select>
-                  <mat-hint >Original document's language</mat-hint>
+                  <!-- <mat-hint >Original document's language</mat-hint> -->
                 </mat-form-field>
                 <div fxFlex="24px" fxLayout="column" fxLayoutAlign="center center">
-                  <button mat-icon-button (click)="swapLanguages()"><mat-icon >swap_horiz</mat-icon></button>
+                  <button mat-icon-button (click)="swapLanguages()">
+                    <mat-icon>swap_horiz</mat-icon>
+                  </button>
                 </div>
-                
+    
                 <mat-form-field fxFlex="calc(50% - 28px)">
-                  <mat-select  placeholder="Target Language" [(ngModel)]="quote.target" required [disabled]="uploading || uploaded">
+                  <mat-select placeholder="Target Language" [(ngModel)]="quote.target" required
+                    [disabled]="uploading || uploaded">
                     <mat-option *ngFor="let target of targetLanguages" [value]="target.value">{{target.name}}</mat-option>
                   </mat-select>
-                  <mat-hint >Language of your documents</mat-hint>
-                </mat-form-field>              
+                  <!-- <mat-hint >Language of your documents</mat-hint> -->
+                </mat-form-field>
               </div>
               <mat-form-field class="m-top-10">
-                <textarea  matInput maxlength="256" placeholder="Message" value="" [(ngModel)]="quote.message"
+                <textarea matInput maxlength="256" placeholder="Message" value="" [(ngModel)]="quote.message"
                   matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="5"></textarea>
-                <mat-hint align="end" *ngIf="quote.message" >{{quote.message.length}} / 256</mat-hint>
+                <mat-hint align="end" *ngIf="quote.message">{{quote.message.length}} / 256</mat-hint>
               </mat-form-field>
               <div fxLayout="column" fxLayoutGap="16px">
                 <div fxFlex="50">
                   <button type="button" mat-raised-button [disabled]="uploading || uploaded"
-                    (click)="imgFileInput.click()" >Documents</button>
-                  <input hidden type="file" accept="application/pdf, image/*" #imgFileInput multiple (change)="getFileData($event)"/>
+                    (click)="imgFileInput.click()">Documents</button>
+                  <input hidden type="file" accept="application/pdf, image/*" #imgFileInput multiple
+                    (change)="getFileData($event)" />
                   <mat-hint class="text-small">
                     <i class="material-icons" style="padding-top: 7px; position: absolute">arrow_back</i>
                     <span class="p-left-25">PDF, JPEG, PNG, TIFF</span>
@@ -61,11 +74,11 @@
                 </div>
               </div>
               <div *ngIf="files.length > 0">
-                <div class="m-top-15"> 
+                <div class="m-top-15">
                   <mat-divider></mat-divider>
-                </div> 
+                </div>
                 <div class="p-left-10 p-right-10 m-top-15">
-                  <table  class="m-top-10">
+                  <table class="m-top-10">
                     <thead>
                       <tr>
                         <th></th>
@@ -83,31 +96,35 @@
                               [original-size]="false" [autoresize]="true" [page]="1"></pdf-viewer>
                           </div>
                         </td>
-                        <td class="p-right-15" style="width: 175.5px;" [ngStyle]="{'padding-left': file.name.type === 'pdf' ? '0' : '40px'}" >
-                          {{file.name.length > 20 ? (file.name.substring(0, 15) + "..." + file.name.slice(-4)) : file.name }}
+                        <td class="p-right-15" style="width: 175.5px;"
+                          [ngStyle]="{'padding-left': file.name.type === 'pdf' ? '0' : '40px'}">
+                          {{file.name.length > 20 ? (file.name.substring(0, 15) + "..." + file.name.slice(-4)) : file.name
+                          }}
                         </td>
                         <td class="align-center">{{file.pages * price.page | currency: quote.currency}}</td>
                         <td style="text-align:center">{{file.pages}}</td>
                         <td>
-                          <button mat-icon-button color="primary" (click)="removeFile(i)" class="m-right-10" [disabled]="file.progress | async">
+                          <button mat-icon-button color="primary" (click)="removeFile(i)" class="m-right-10"
+                            [disabled]="file.progress | async">
                             <mat-icon>
                               <i class="material-icons btn-remove" mode="determinate">remove_circle_outline</i>
                             </mat-icon>
                             <mat-icon *ngIf="file.progress | async as prog">
                               <i class="material-icons btn-remove success-text-color" *ngIf="prog === 100">check_circle</i>
                             </mat-icon>
-                          </button>                        
+                          </button>
                         </td>
                         <td style="width:50px">
                           <div *ngIf="file.progress | async as prog">
-                            <mat-progress-bar *ngIf="prog > 0 && prog < 100" mode="determinate" [value]="prog" max="100"></mat-progress-bar>
+                            <mat-progress-bar *ngIf="prog > 0 && prog < 100" mode="determinate" [value]="prog" max="100">
+                            </mat-progress-bar>
                           </div>
                         </td>
                       </tr>
                     </tbody>
                     <tfoot>
                       <tr class="text-small">
-                        <th id="total" colspan="2" style="height: 42px;">Translation</th>                        
+                        <th id="total" colspan="2" style="height: 42px;">Translation</th>
                         <th style="height: 42px;">{{quote.translationPrice | currency: quote.currency}}</th>
                         <th style="height: 42px;">{{quote.pages}}</th>
                       </tr>
@@ -115,28 +132,29 @@
                   </table>
                 </div>
                 <div>
-                  <div class="m-top-15"> 
+                  <div class="m-top-15">
                     <mat-divider></mat-divider>
                   </div>
                   <table>
                     <tr class="text-small">
                       <td style="height: 42px;" style="padding-bottom: 12px;">
-                        <mat-checkbox color="primary" [(ngModel)]="quote.certifiedTraslation" class="text-small m-top-10" [disabled]="uploading || uploaded" (ngModelChange)="getTotal()"></mat-checkbox>
+                        <mat-checkbox color="primary" [(ngModel)]="quote.certifiedTraslation" class="text-small m-top-10"
+                          [disabled]="uploading || uploaded" (ngModelChange)="getTotal()"></mat-checkbox>
                       </td>
-                      
+    
                       <td class="p-right-15" style="width: 175.5px; padding-left: 50px;">
-                          Certification
+                        Certification
                       </td>
                       <td style="height: 42px;">
                         <div>CA${{quote.certificationPrice}}</div>
                       </td>
-                      <td style="height: 42px;">                          
+                      <td style="height: 42px;">
                       </td>
-                      <td style="height: 42px;">                          
+                      <td style="height: 42px;">
                       </td>
                     </tr>
                   </table>
-                  <div> 
+                  <div>
                     <mat-divider></mat-divider>
                   </div>
                   <table class="m-top-15" style="font-weight: 600; margin-left: 50px">
@@ -155,55 +173,62 @@
                     </tr>
                   </table>
                   <!-- <div class="m-top-15" fxLayout="column" fxLayoutGap="10px">
-                    <div class="text-large" style="padding-top:3px;"><strong n18i>Shipping: {{quote.shippingPrice > 0 ? quote.shippingPrice  : 0 | currency: quote.currency}}</strong></div>
-                    <div class="text-large" style="padding-top:3px;"><strong n18i>Total: {{quote.totalPrice | currency: quote.currency}}</strong></div>
-                  </div> -->
-                  <div class="m-top-10" style="color: #bd1d1d" class="text-small" *ngIf="quote.pages < 3">Add more pages to get a better quote.</div>
+                        <div class="text-large" style="padding-top:3px;"><strong n18i>Shipping: {{quote.shippingPrice > 0 ? quote.shippingPrice  : 0 | currency: quote.currency}}</strong></div>
+                        <div class="text-large" style="padding-top:3px;"><strong n18i>Total: {{quote.totalPrice | currency: quote.currency}}</strong></div>
+                      </div> -->
+                  <div class="m-top-10" style="color: #bd1d1d" class="text-small" *ngIf="quote.pages < 3">Add more pages to
+                    get a better quote.</div>
                   <div class="m-top-15" fxLayout="row">
-          
+    
                   </div>
                 </div>
               </div>
-              <mat-checkbox style="margin-left:5px" color="primary" [(ngModel)]="quote.shipping" required class="text-small m-top-10" [disabled]="uploading || uploaded" (ngModelChange)="onShippingSelected($event)">I would like to receive a hard copy</mat-checkbox>
+              <mat-checkbox style="margin-left:5px" color="primary" [(ngModel)]="quote.shipping" required
+                class="text-small m-top-10" [disabled]="uploading || uploaded" (ngModelChange)="onShippingSelected($event)">
+                I would like to receive a hard copy</mat-checkbox>
               <div *ngIf="quote.shipping" fxLayout="column" class="m-top-10">
-                  <div ><strong>Shipping Address</strong></div>
-                  <div fxLayout="row" fxLayoutGap="20px">
-                    <mat-form-field fxFlex="65">
-                      <mat-select placeholder="Country" [(ngModel)]="quote.shippingAddress.country" required (ngModelChange)="this.onShippingCountryChange($event)">
-                        <mat-option *ngFor="let country of countriesList" [value]="country.shortName">{{country.name}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field fxFlex="35">
-                      <mat-select  placeholder="State/Province" [(ngModel)]="quote.shippingAddress.state" required [disabled]="!quote.shippingAddress.country"
-                        (ngModelChange)="this.onShippingStateChange($event)">
-                        <mat-option *ngFor="let state of statesList" [value]="state">{{state.isoCode}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <mat-form-field>
-                    <mat-select  placeholder="City/Town" [(ngModel)]="quote.shippingAddress.city" [disabled]="!quote.shippingAddress.state">
-                      <mat-option value="Not Found"></mat-option>
-                      <mat-option *ngFor="let city of citiesList" [value]="city">{{city.name}}</mat-option>
+                <div><strong>Shipping Address</strong></div>
+                <div fxLayout="row" fxLayoutGap="20px">
+                  <mat-form-field fxFlex="65">
+                    <mat-select placeholder="Country" [(ngModel)]="quote.shippingAddress.country" required
+                      (ngModelChange)="this.onShippingCountryChange($event)">
+                      <mat-option *ngFor="let country of countriesList" [value]="country.shortName">{{country.name}}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
-                  <mat-form-field>
-                    <input matInput  placeholder="Address" [(ngModel)]="quote.shippingAddress.address" required>
-                  </mat-form-field>
-                  <mat-form-field style="width: 120px">
-                    <input matInput  placeholder="Postal Code" [(ngModel)]="quote.shippingAddress.zip" required>
+                  <mat-form-field fxFlex="35">
+                    <mat-select placeholder="State/Province" [(ngModel)]="quote.shippingAddress.state" required
+                      [disabled]="!quote.shippingAddress.country" (ngModelChange)="this.onShippingStateChange($event)">
+                      <mat-option *ngFor="let state of statesList" [value]="state">{{state.isoCode}}</mat-option>
+                    </mat-select>
                   </mat-form-field>
                 </div>
+                <mat-form-field>
+                  <mat-select placeholder="City/Town" [(ngModel)]="quote.shippingAddress.city"
+                    [disabled]="!quote.shippingAddress.state">
+                    <mat-option value="Not Found"></mat-option>
+                    <mat-option *ngFor="let city of citiesList" [value]="city">{{city.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Address" [(ngModel)]="quote.shippingAddress.address" required>
+                </mat-form-field>
+                <mat-form-field style="width: 120px">
+                  <input matInput placeholder="Postal Code" [(ngModel)]="quote.shippingAddress.zip" required>
+                </mat-form-field>
+              </div>
               <!-- <mat-checkbox color="primary" [(ngModel)]="quote.terms" required class="text-small" [disabled]="uploading || uploaded" >I've read and accepted the <span><a class="link-light-bg" (click)="openTermsDialog()" in18>terms</a></span></mat-checkbox> -->
               <button mat-raised-button color="primary" (click)="submit()" class="m-top-10"
-                [disabled]="files.length === 0 || uploading === true" >Submit
+                [disabled]="files.length === 0 || uploading === true">Submit
               </button>
+            </div>
           </div>
-        </div>
-      </mat-card>
+        </mat-card>
+      </div>
     </div>
+
   </div>
-  
+
 
 
 </div>
-    

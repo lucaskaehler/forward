@@ -36,6 +36,7 @@ export class QuoteComponent implements OnInit {
     fname: null,
     lname: null,
     email: null,
+    phone: null,
     source: 'PT',
     target: "EN",
     totalPages: 0,
@@ -353,15 +354,15 @@ export class QuoteComponent implements OnInit {
       <br><br>
       <div><strong>SHIPPING INFORMATION</div>
       <div><strong>Address:</strong> ${this.quote.shippingAddress.address}</div>
-      <div><strong>City:</strong> ${this.quote.shippingAddress.address}, ${this.quote.shippingAddress.state}</div>
-      <div><strong>Country:</strong> ${this.quote.shippingAddress.contry}</div>
+      <div><strong>City:</strong> ${this.quote.shippingAddress.city.name}, ${this.quote.shippingAddress.state.isoCode}</div>
+      <div><strong>Country:</strong> ${this.quote.shippingAddress.state.countryCode}</div>
       <div><strong>Postal Code:</strong> ${this.quote.shippingAddress.zip}</div>
       <br><br>
       `
     }
 
     let data = {
-      to: 'alinekaehler1@gmail.com',
+      to: 'alinekaehler1@gmail.com; info@forwardtranslations.ca',
       message: {
         subject: subject,
         text: "This is the plaintext section of the email body.",
@@ -376,6 +377,7 @@ export class QuoteComponent implements OnInit {
         <div><strong>CLIENT</strong></div> 
         <div style="margin-top:10px;"><strong>Name:</strong> ${this.quote.fname} ${this.quote.lname}</div>
         <div><strong>E-mail: </strong>${this.quote.email}</div>
+        <div><strong>Phone#: </strong>${this.quote.phone}</div>
         <div><strong>Translation: </strong>${this.quote.source} to ${this.quote.target}</div>
         </br></br>
         <div><strong>Message: </strong><p style="padding-left: 30px">${this.quote.message !== null ? this.quote.message : 'no message'}</p></div> 
